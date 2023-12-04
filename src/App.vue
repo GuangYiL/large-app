@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import {useFullscreen} from "@vueuse/core";
+<script setup>
 import autofit from "autofit.js";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
@@ -14,7 +13,6 @@ const videoPlayer = ref(null);
 const myPlayer = ref(null);
 const myPlayer1 = ref(null);
 
-const {isFullscreen, enter, exit, toggle} = useFullscreen();
 const isClick = ref(false);
 const isClick2 = ref(false);
 const isClick3 = ref(false);
