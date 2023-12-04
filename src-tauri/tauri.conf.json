@@ -33,7 +33,11 @@
     "windows": [
       {
         "fullscreen": true,
-        "resizable": true,
+        "resizable": false,
+        "closable": false,
+        "maximizable": false,
+        "minimizable": false,
+        "alwaysOnTop": true,
         "title": "浦东机场飞行区信息展示屏",
         "decorations": false,
         "width": 800,

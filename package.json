@@ -12,6 +12,7 @@
   "dependencies": {
     "@dataview/datav-vue3": "^0.0.0-test.1672506674342",
     "@tauri-apps/api": "^2.0.0-alpha.11",
+    "@tauri-apps/plugin-process": "^2.0.0-alpha.3",
     "@tauri-apps/plugin-shell": "^2.0.0-alpha.3",
     "@vueuse/core": "^10.6.1",
     "autofit.js": "^3.0.6",

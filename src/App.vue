@@ -6,15 +6,15 @@ import "video.js/dist/video-js.css";
 import {onMounted, reactive, ref} from "vue";
 import bgPoster from "./assets/img.png";
 import btn from "./assets/微信图片_20231202205845.png";
-import message from "./assets/机场信息.jpg";
+import message from "./assets/机场信息.png";
 import bgVideo from "./assets/WeChat_one.mp4";
 import bridImg from './assets/brid.png'
+import {exit} from "@tauri-apps/plugin-process";
 
 const videoPlayer = ref(null);
 const myPlayer = ref(null);
 const myPlayer1 = ref(null);
 
-const {isFullscreen , enter, exit, toggle} = useFullscreen();
 const isClick = ref(false);
 const isClick2 = ref(false);
 const isClick3 = ref(false);
@@ -30,7 +30,7 @@ const TabStyle1 = {
   backgroundImage: "linear-gradient(to right , #7A88FF, #7AFFAF)",
   // 透明度
   position: 'relative',
-  left: "13%",
+  left: "13.5%",
   opacity: 1,
 };
 const maskStyle = {
@@ -306,6 +306,10 @@ const videoClick = () => {
   isClick3.value = true;
 
 };
+
+const closeClick = async () => {
+  await exit(1)
+}
 </script>
 
 <template>
@@ -315,8 +319,9 @@ const videoClick = () => {
   <div class="con ">
 
 
-    <!--    <div style="-->
-    <!--                padding-top: 0;top: 5%; left: 0;width: 500px;text-align: center;line-height: 60px;color: #f6f3f3;font-size: 18px" class="absolute z-9999 "><h1>浦东机场飞行区信息展示屏</h1></div>-->
+    <div style="color: #f6f3f3;right: 1%;top:1%;opacity: 0.7" class="absolute z-9999 ">
+      <icon-close-circle-fill style="width: 50px;height: 50px" @click="closeClick"/>
+    </div>
     <!--<div><img alt="" class="absolute z-9999" :src="backImg" width="540" height="140" style="top: 10%; left: 50.5%;"/>-->
     <!--  <span class="absolute z-9999" style="top: 10%; left: 50.5%;color: white"><h1>浦东机场飞行区信息展示屏</h1></span>-->
     <!--</div>-->
@@ -396,7 +401,7 @@ const videoClick = () => {
            :class="isClick ? ' absolute z-999 ' : 'absolute '">机场信息
       </div>
       <div style="top: 85%; left: 2%;font-size: 20px;color: #ffffff;"
-           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">鸟禽监测
+           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">鸟情监测
       </div>
 
       <!--      <img alt=""-->
@@ -448,9 +453,9 @@ const videoClick = () => {
         :align-center="false"
 
         top="30%"
-        :width="450"
+        :width="470"
     >
-      <div>
+      <div style="text-align: center">
         <h1>机场总面积20.2平方千米</h1>
         <a-image :src="message" width="100%" height="100%"></a-image>
       </div>
@@ -493,7 +498,7 @@ const videoClick = () => {
            :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道④
       </div>
       <div style="top: 85%; left: 2%;font-size: 20px;color: #ffffff;"
-           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">鸟禽监测
+           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">鸟情监测
       </div>
       <img alt=""
            @click.stop="menuClick(2)"
@@ -557,8 +562,6 @@ const videoClick = () => {
       </a-modal>
     </div>
     <div :class="isClick3 ? ' absolute z-999 bgPoster' : 'absolute bgPoster'">
-
-
     </div>
   </div>
 </template>
@@ -574,7 +577,6 @@ const videoClick = () => {
 .vjs-poster img {
   width: 100% !important;
   height: 100% !important;
-  //object-fit: fill !important;
 }
 
 .threePage {
