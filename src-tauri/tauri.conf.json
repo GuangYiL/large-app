@@ -3,10 +3,7 @@
     "beforeDevCommand": "bun run dev",
     "beforeBuildCommand": "bun run build",
     "devPath": "http://localhost:1420",
-    "distDir": "../dist",
-    "webviewInstallMode": {
-      "type": "offlineInstaller"
-    }
+    "distDir": "../dist"
   },
   "package": {
     "productName": "large-app",
@@ -23,7 +20,10 @@
         "icons/128x128@2x.png",
         "icons/icon.icns",
         "icons/icon.ico"
-      ]
+      ],
+      "webviewInstallMode": {
+        "type": "offlineInstaller"
+      }
     },
     "security": {
       "csp": null
