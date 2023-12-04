@@ -9,12 +9,12 @@ import btn from "./assets/微信图片_20231202205845.png";
 import message from "./assets/机场信息.png";
 import bgVideo from "./assets/WeChat_one.mp4";
 import bridImg from './assets/brid.png'
-import {exit} from "@tauri-apps/plugin-process";
 
 const videoPlayer = ref(null);
 const myPlayer = ref(null);
 const myPlayer1 = ref(null);
 
+const {isFullscreen, enter, exit, toggle} = useFullscreen();
 const isClick = ref(false);
 const isClick2 = ref(false);
 const isClick3 = ref(false);
@@ -146,66 +146,11 @@ const throttle = (fn, wait = 50) => {
 // // 每 10 毫秒执行一次 betterFn 函数，但是只有时间差大于 1000 时才会执行 fn
 
 const bgClick = () => {
-  if (myPlayer.value) {
-    isClick.value = true;
-    myPlayer.value.currentTime(0);
-    myPlayer.value.play();
+  isClick.value = true;
+  myPlayer.value.currentTime(0);
+  myPlayer.value.play();
+  isClick2.value = false;
 
-  } else {
-    // 重新绑定事件
-    autofit.init({
-      designHeight: 1440,
-      designWidth: 2560,
-      renderDom: "#app",
-      resize: true,
-    });
-
-    // 为myPlayer元素赋值，使用videojs函数创建视频播放器
-    myPlayer1.value = videojs(
-        videoPlayer.value,
-        {
-          // 播放器自动播放设置为false
-          autoplay: false,
-          // 播放器显示的封面图片
-          poster: bgPoster,
-          // 播放器显示控制条
-          controls: false,
-          // 播放器开始静音
-          muted: true,
-          // 播放器的视频源
-          sources: [
-            {
-              // 视频源的URL
-              src: bgVideo,
-              // 视频源的类型
-              type: "video/mp4",
-            },
-          ],
-          // 播放器的控制栏
-          controlBar: false,
-          // 播放器的用户操作
-          userActions: false,
-        },
-        () => {
-          // 播放器加载完成时执行的回调函数
-          myPlayer1.value.log("play.....");
-
-        }
-    );
-    myPlayer1.value.on("playing", function () {
-      // isClick.value = false;
-      // isClick2.value = true;
-    })
-    // 监听播放器播放结束事件
-    myPlayer1.value.on("ended", function () {
-      // 打印日志信息
-      console.log("eee");
-      // 将isClick的值设为false
-      isClick.value = false;
-      isClick2.value = true;
-
-    });
-  }
 };
 const menuClick = (x) => {
 
@@ -306,10 +251,6 @@ const videoClick = () => {
   isClick3.value = true;
 
 };
-
-const closeClick = async () => {
-  await exit(1)
-}
 </script>
 
 <template>
@@ -320,7 +261,7 @@ const closeClick = async () => {
 
 
     <div style="color: #f6f3f3;right: 1%;top:1%;opacity: 0.7" class="absolute z-9999 ">
-      <icon-close-circle-fill style="width: 50px;height: 50px" @click="closeClick"/>
+      <icon-close-circle-fill style="width: 50px;height: 50px" @click=""/>
     </div>
     <!--<div><img alt="" class="absolute z-9999" :src="backImg" width="540" height="140" style="top: 10%; left: 50.5%;"/>-->
     <!--  <span class="absolute z-9999" style="top: 10%; left: 50.5%;color: white"><h1>浦东机场飞行区信息展示屏</h1></span>-->
@@ -489,24 +430,37 @@ const closeClick = async () => {
            :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道①
       </div>
       <div style="top: 10%; left: 30.5%;font-size: 20px;color: #ffffff;"
-           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道②
+           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道④
       </div>
       <div style="top: 89%; left: 25.5%;font-size: 20px;color: #ffffff;"
            :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道③
       </div>
       <div style="top: 21%; left: 30.5%;font-size: 20px;color: #ffffff;"
-           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道④
+           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道②
       </div>
+      <div style="top: 80%; left: 46.8%;font-size: 20px;color: #ffffff;"
+           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">机场信息
+      </div>
+
       <div style="top: 85%; left: 2%;font-size: 20px;color: #ffffff;"
            :class="isClick2 ? ' absolute z-999 ' : 'absolute '">鸟情监测
       </div>
+      <img alt=""
+
+           @click.prevent="bgClick"
+           class="absolute anima"
+           :src="btn"
+           width="60"
+           height="60"
+           style="top: 75%; left: 44%"
+      />
       <img alt=""
            @click.stop="menuClick(2)"
            :src="btn"
            width="60"
            height="60"
            class="anima"
-           style="top: 16%; left: 27%"
+           style="top: 16%; left: 24%"
       />
       <img alt=""
            @click.stop="menuClick(3)"
@@ -514,7 +468,7 @@ const closeClick = async () => {
            width="60"
            height="60"
            class="anima"
-           style="top: 84%; left: 19%"
+           style="top: 84%; left: 16%"
       />
       <img alt=""
            @click.stop="menuClick(4)"
@@ -522,7 +476,7 @@ const closeClick = async () => {
            width="60"
            height="60"
            class="anima"
-           style=" top: 5%; left: 21%"
+           style=" top: 5%; left: 18%"
       />
       <img alt=""
            @click.stop="menuClick(5)"
@@ -530,7 +484,7 @@ const closeClick = async () => {
            :src="btn"
            width="60"
            height="60"
-           style="top: 87%; left:-10.5%"
+           style="top: 87%; left:-13.5%"
       />
       <img alt=""
            @click.stop="menuClick(6)"
@@ -538,7 +492,7 @@ const closeClick = async () => {
            :src="btn"
            width="60"
            height="60"
-           style="top: 93%; left: 80%"
+           style="top: 93%; left: 77%"
       />
       <div style="top: 90.5%; left: 96.3%;font-size: 20px;color: #ffffff;"
            :class="isClick2 ? ' absolute z-999 ' : 'absolute '">重置
@@ -562,11 +516,20 @@ const closeClick = async () => {
       </a-modal>
     </div>
     <div :class="isClick3 ? ' absolute z-999 bgPoster' : 'absolute bgPoster'">
+
+
     </div>
   </div>
 </template>
 
 <style>
+* {
+  -moz-user-select: none; /* Firefox */
+  -webkit-user-select: none; /* Safari/Webkit */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+}
+
 .con {
   position: relative;
   width: 100% !important;
