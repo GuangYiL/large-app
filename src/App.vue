@@ -312,10 +312,11 @@ const videoClick = () => {
   <!--@click="bgClick"-->
 
 
-  <div class="con">
-    <div style="
-                padding-top: 0;top: 5%; left: 0;width: 500px;text-align: center;line-height: 60px;color: #f6f3f3;font-size: 18px"
-         class="absolute z-9999 "><h1>浦东机场飞行区信息展示屏</h1></div>
+  <div class="con ">
+
+
+    <!--    <div style="-->
+    <!--                padding-top: 0;top: 5%; left: 0;width: 500px;text-align: center;line-height: 60px;color: #f6f3f3;font-size: 18px" class="absolute z-9999 "><h1>浦东机场飞行区信息展示屏</h1></div>-->
     <!--<div><img alt="" class="absolute z-9999" :src="backImg" width="540" height="140" style="top: 10%; left: 50.5%;"/>-->
     <!--  <span class="absolute z-9999" style="top: 10%; left: 50.5%;color: white"><h1>浦东机场飞行区信息展示屏</h1></span>-->
     <!--</div>-->
@@ -460,7 +461,7 @@ const videoClick = () => {
         :closable="false"
         @cancel="handleCancel"
         :mask-style="maskStyle"
-        :modal-style="TabStyle1"
+        :modal-style="TabStyle"
         :footer="false"
         :hide-title="true"
         :width="700"
@@ -565,7 +566,6 @@ const videoClick = () => {
 <style>
 .con {
   position: relative;
-
   width: 100% !important;
   height: 100% !important;
   overflow: hidden;
@@ -615,4 +615,5 @@ const videoClick = () => {
     transform: scale(1);
   }
 }
+
 </style>
