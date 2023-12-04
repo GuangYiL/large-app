@@ -10,15 +10,16 @@
     "tauri": "tauri"
   },
   "dependencies": {
-     "@vueuse/core": "^10.6.1",
+    "@dataview/datav-vue3": "^0.0.0-test.1672506674342",
+    "@tauri-apps/api": "^2.0.0-alpha.11",
+    "@tauri-apps/plugin-shell": "^2.0.0-alpha.3",
+    "@vueuse/core": "^10.6.1",
     "autofit.js": "^3.0.6",
     "video.js": "^8.6.1",
-    "vue": "^3.3.4",
-    "@tauri-apps/api": "^2.0.0-alpha.11",
-    "@tauri-apps/plugin-shell": "^2.0.0-alpha.3"
+    "vue": "^3.3.4"
   },
   "devDependencies": {
-     "@arco-design/web-vue": "^2.53.3",
+    "@arco-design/web-vue": "^2.53.3",
     "unocss": "^0.57.7",
     "@vitejs/plugin-vue": "^4.2.3",
     "typescript": "^5.0.2",

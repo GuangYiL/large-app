@@ -3,12 +3,13 @@ import {useFullscreen} from "@vueuse/core";
 import autofit from "autofit.js";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
-import {onMounted, onUnmounted, reactive, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import bgPoster from "./assets/img.png";
 import btn from "./assets/微信图片_20231202205845.png";
 import message from "./assets/机场信息.jpg";
 import bgVideo from "./assets/WeChat_one.mp4";
 import bridImg from './assets/brid.png'
+import {BorderBox11} from '@dataview/datav-vue3'
 
 const videoPlayer = ref(null);
 const myPlayer = ref(null);
@@ -24,20 +25,19 @@ const visible2 = ref(false);
 const visible3 = ref(false);
 const TabStyle = {
   backgroundImage: "linear-gradient(to right , #7A88FF, #7AFFAF)",
-/*  position: "absolute",
-  top: "10px",
-  width: "100px",
-  height: "30px",*/
   // 透明度
 };
 const TabStyle1 = {
   backgroundImage: "linear-gradient(to right , #7A88FF, #7AFFAF)",
   // 透明度
+  position: 'relative',
+  left: "13%",
   opacity: 1,
 };
 const maskStyle = {
   opacity: 0,
 };
+
 const columns = [
   {title: "基本参数", dataIndex: "title1"},
   {title: "跑道全长(米)", dataIndex: "title2"},
@@ -116,17 +116,9 @@ onMounted(() => {
     areX.value = 2;
     visible2.value = false
   });
+  // document.getElementById('containe2').children[0].remove()
 });
 
-onUnmounted(() => {
-  if (myPlayer.value) {
-
-  }
-});
-
-const bgDbClick = () => {
-  enter();
-};
 
 const throttle = (fn, wait = 50) => {
   // 上一次执行 fn 的时间
@@ -148,12 +140,12 @@ const throttle = (fn, wait = 50) => {
 
 // DEMO
 // 执行 throttle 函数返回新函数
-const betterFn = throttle(() => {
-  isClick.value = true;
-  myPlayer.value.currentTime(0);
-  myPlayer.value.play();
-}, 27000);
-// 每 10 毫秒执行一次 betterFn 函数，但是只有时间差大于 1000 时才会执行 fn
+// const betterFn = throttle(() => {
+//   isClick.value = true;
+//   myPlayer.value.currentTime(0);
+//   myPlayer.value.play();
+// }, 27000);
+// // 每 10 毫秒执行一次 betterFn 函数，但是只有时间差大于 1000 时才会执行 fn
 
 const bgClick = () => {
   if (myPlayer.value) {
@@ -218,7 +210,7 @@ const bgClick = () => {
   }
 };
 const menuClick = (x) => {
-
+  console.log(x)
   switch (x) {
     case 1:
       data.splice(0);
@@ -316,230 +308,123 @@ const videoClick = () => {
   isClick3.value = true;
 
 };
+
 </script>
 
 <template>
   <!--@click="bgClick"-->
-  <div class="con">
-    <div :class="!isClick ? 'absolute z-999 !w-full !h-full' : 'absolute !w-full !h-full'">
-      <img
-          @click.prevent="bgClick"
-          class="absolute anima"
-          :src="btn"
-          width="60"
-          height="60"
-          style="top: 75%; left: 47%"
-      />
-      <!-- <img class="absolute z-999" :src="btn" width="140" height="140"/>
-      <img class="absolute z-999" :src="btn" width="140" height="140"/>
-      <img class="absolute z-999" :src="btn" width="140" height="140"/>
-      <img class="absolute z-999" :src="btn" width="140" height="140"/> -->
-      <img
-          @click.stop="menuClick(1)"
-          class="absolute anima"
-          :src="btn"
-          width="60"
-          height="60"
-          style="top: 72%; left: 25%"
-      />
-      <img
-          @click.stop="menuClick(2)"
-          class="absolute anima"
-          :src="btn"
-          width="60"
-          height="60"
-          style="top: 16%; left: 30%"
-      />
-      <img
-          @click.stop="menuClick(3)"
-          class="absolute anima"
-          :src="btn"
-          width="60"
-          height="60"
-          style="top: 84%; left: 25%"
-      />
-      <img
-          @click.stop="menuClick(4)"
-          class="absolute anima"
-          :src="btn"
-          width="60"
-          height="60"
-          style="top: 5%; left: 30%"
-      />
-      <img
-          :src="bgPoster"
-          class="!w-full !h-full !max-w-full !max-h-full !min-h-full !min-w-full"
-      />
-      <img
-          @click.stop="menuClick(5)"
-          class="absolute anima"
-          :src="btn"
-          width="60"
-          height="60"
-          style="top: 87%; left: 2%"
-      />
-      <div style="top: 77%; left: 25.5%;font-size: 20px;color: #ffffff;"
-           :class="isClick ? ' absolute z-999 ' : 'absolute '">跑道①
-      </div>
-      <div style="top: 21%; left: 30.5%;font-size: 20px;color: #ffffff;"
-           :class="isClick ? ' absolute z-999 ' : 'absolute '">跑道②
-      </div>
-      <div style="top: 89%; left: 25.5%;font-size: 20px;color: #ffffff;"
-           :class="isClick ? ' absolute z-999 ' : 'absolute '">跑道③
-      </div>
-      <div style="top: 10%; left: 30.5%;font-size: 20px;color: #ffffff;"
-           :class="isClick ? ' absolute z-999 ' : 'absolute '">跑道④
-      </div>
-      <div style="top: 80%; left: 46.8%;font-size: 20px;color: #ffffff;"
-           :class="isClick ? ' absolute z-999 ' : 'absolute '">机场信息
-      </div>
-      <div style="top: 85%; left: 2%;font-size: 20px;color: #ffffff;"
-           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">鸟类信息
-      </div>
+<!--  <BorderBox11 title="浦东机场飞行区信息展示屏" id="containe2">-->
+    <div class="con">
+      <!--    <div style="    border: 8px inset #2c9fcf;-->
+      <!--                padding-top: 0;top: 10%; left: 50.5%;width: 600px;text-align: center;line-height: 60px;color: #e3dfdf" class="absolute z-9999 "><h1>浦东机场飞行区信息展示屏</h1></div>-->
+      <!--<div><img alt="" class="absolute z-9999" :src="backImg" width="540" height="140" style="top: 10%; left: 50.5%;"/>-->
+      <!--  <span class="absolute z-9999" style="top: 10%; left: 50.5%;color: white"><h1>浦东机场飞行区信息展示屏</h1></span>-->
+      <!--</div>-->
 
-      <!--      <img-->
-      <!--          @click.stop="menuClick(6)"-->
-      <!--          class="absolute anima"-->
-      <!--          :src="btn"-->
-      <!--          width="60"-->
-      <!--          height="60"-->
-      <!--          style="top: 93%; left: 94%"-->
-      <!--      />-->
-    </div>
-    <video
-        ref="videoPlayer"
-        :class="
+      <div :class="!isClick ? 'absolute z-999 !w-full !h-full' : 'absolute !w-full !h-full'">
+        <img alt=""
+
+             @click.prevent="bgClick"
+             class="absolute anima"
+             :src="btn"
+             width="60"
+             height="60"
+             style="top: 75%; left: 47%"
+        />
+        <!-- <img alt="" class="absolute z-999" :src="btn" width="140" height="140"/>
+        <img alt="" class="absolute z-999" :src="btn" width="140" height="140"/>
+        <img alt="" class="absolute z-999" :src="btn" width="140" height="140"/>
+        <img alt="" class="absolute z-999" :src="btn" width="140" height="140"/> -->
+        <img alt=""
+
+             @click.stop="menuClick(1)"
+             class="absolute anima"
+             :src="btn"
+             width="60"
+             height="60"
+             style="top: 72%; left: 25%"
+        />
+        <img alt=""
+             @click.stop="menuClick(2)"
+             class="absolute anima"
+             :src="btn"
+             width="60"
+             height="60"
+             style="top: 16%; left: 30%"
+        />
+        <img alt=""
+             @click.stop="menuClick(3)"
+             class="absolute anima"
+             :src="btn"
+             width="60"
+             height="60"
+             style="top: 84%; left: 25%"
+        />
+        <img alt=""
+             @click.stop="menuClick(4)"
+             class="absolute anima"
+             :src="btn"
+             width="60"
+             height="60"
+             style="top: 5%; left: 30%"
+        />
+        <img alt=""
+             :src="bgPoster"
+             class="!w-full !h-full !max-w-full !max-h-full !min-h-full !min-w-full"
+        />
+        <img alt=""
+             @click.stop="menuClick(5)"
+             class="absolute anima"
+             :src="btn"
+             width="60"
+             height="60"
+             style="top: 87%; left: 2%"
+        />
+        <div style="top: 77%; left: 25.5%;font-size: 20px;color: #ffffff;"
+             :class="isClick ? ' absolute z-999 ' : 'absolute '">跑道①
+        </div>
+        <div style="top: 21%; left: 30.5%;font-size: 20px;color: #ffffff;"
+             :class="isClick ? ' absolute z-999 ' : 'absolute '">跑道②
+        </div>
+        <div style="top: 89%; left: 25.5%;font-size: 20px;color: #ffffff;"
+             :class="isClick ? ' absolute z-999 ' : 'absolute '">跑道③
+        </div>
+        <div style="top: 10%; left: 30.5%;font-size: 20px;color: #ffffff;"
+             :class="isClick ? ' absolute z-999 ' : 'absolute '">跑道④
+        </div>
+        <div style="top: 80%; left: 46.8%;font-size: 20px;color: #ffffff;"
+             :class="isClick ? ' absolute z-999 ' : 'absolute '">机场信息
+        </div>
+        <div style="top: 85%; left: 2%;font-size: 20px;color: #ffffff;"
+             :class="isClick2 ? ' absolute z-999 ' : 'absolute '">鸟类信息
+        </div>
+
+        <!--      <img alt=""-->
+        <!--          @click.stop="menuClick(6)"-->
+        <!--          class="absolute anima"-->
+        <!--          :src="btn"-->
+        <!--          width="60"-->
+        <!--          height="60"-->
+        <!--          style="top: 93%; left: 94%"-->
+        <!--      />-->
+      </div>
+      <video
+          ref="videoPlayer"
+          :class="
         isClick
           ? 'absolute z-999 video-js !min-h-full !min-w-full !max-w-full !max-h-full !w-full !h-full !object-cover'
           : 'absolute video-js !min-h-full !min-w-full !max-w-full !max-h-full !w-full !h-full !object-cover'
       "
-        @click="videoClick"
-        webkit-playsinline="webkit-playsinline"
-        playsinline="playsinline"
-    ></video>
-    <a-modal
-        :visible="visible"
-        @ok="handleOk"
-        :closable="false"
-        :mask-style="maskStyle"
-        @cancel="handleCancel"
-        width="50%"
-        :modal-style="TabStyle"
-        :footer="false"
-    >
-      <a-table
-          :pagination="false"
-          :columns="columns"
-          :data="data"
-          :style="TabStyle"
-      ></a-table>
-    </a-modal>
-    <a-modal
-        v-model:visible="visible2"
-        @ok="handleOk"
-        :closable="false"
-        @cancel="handleCancel"
-        :mask-style="maskStyle"
-        :modal-style="TabStyle1"
-        :footer="false"
-        :hide-title="true"
-        :align-center="false"
-        :top="1000"
-    >
-      <div>
-        <h1>机场总面积20.2平方千米</h1>
-        <a-image :src="message" width="100%" height="100%"></a-image>
-      </div>
-    </a-modal>
-    <a-modal
-        v-model:visible="visible3"
-        @ok="handleOk"
-        :closable="false"
-        @cancel="handleCancel"
-        :mask-style="maskStyle"
-        :modal-style="TabStyle1"
-        :footer="false"
-        :hide-title="true"
-        :width="700"
-    >
-      <div>
-        <a-image :src="bridImg" width="100%" height="100%"></a-image>
-
-      </div>
-    </a-modal>
-    <div :class="isClick2 ? ' absolute z-999 threePage' : 'absolute threePage'">
-      <img
-          @click="menuClick(1)"
-          :src="btn"
-          width="60"
-          height="60"
-          class="anima"
-          style="top: 72%; left: 25.3%"
-      />
-      <div style="top: 77%; left: 25.5%;font-size: 20px;color: #ffffff;"
-           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道①
-      </div>
-      <div style="top: 10%; left: 30.5%;font-size: 20px;color: #ffffff;"
-           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道②
-      </div>
-      <div style="top: 89%; left: 25.5%;font-size: 20px;color: #ffffff;"
-           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道③
-      </div>
-      <div style="top: 21%; left: 30.5%;font-size: 20px;color: #ffffff;"
-           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道④
-      </div>
-      <div style="top: 85%; left: 2%;font-size: 20px;color: #ffffff;"
-           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">鸟类信息
-      </div>
-      <img
-          @click.stop="menuClick(2)"
-          :src="btn"
-          width="60"
-          height="60"
-          class="anima"
-          style="top: 16%; left: 27%"
-      />
-      <img
-          @click.stop="menuClick(3)"
-          :src="btn"
-          width="60"
-          height="60"
-          class="anima"
-          style="top: 84%; left: 19%"
-      />
-      <img
-          @click.stop="menuClick(4)"
-          :src="btn"
-          width="60"
-          height="60"
-          class="anima"
-          style=" top: 5%; left: 21%"
-      />
-      <img
-          @click.stop="menuClick(5)"
-          class="absolute anima"
-          :src="btn"
-          width="60"
-          height="60"
-          style="top: 87%; left:-10.5%"
-      />
-      <img
-          @click.stop="menuClick(6)"
-          class="absolute anima"
-          :src="btn"
-          width="60"
-          height="60"
-          style="top: 93%; left: 80%"
-      />
-      <div style="top: 90.5%; left: 96.3%;font-size: 20px;color: #ffffff;"
-           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">重置
-      </div>
+          @click="videoClick"
+          webkit-playsinline="webkit-playsinline"
+          playsinline="playsinline"
+      ></video>
       <a-modal
           :visible="visible"
           @ok="handleOk"
           :closable="false"
-          @cancel="handleCancel"
           :mask-style="maskStyle"
+          @cancel="handleCancel"
           width="50%"
           :modal-style="TabStyle"
           :footer="false"
@@ -551,15 +436,137 @@ const videoClick = () => {
             :style="TabStyle"
         ></a-table>
       </a-modal>
-    </div>
-    <div :class="isClick3 ? ' absolute z-999 bgPoster' : 'absolute bgPoster'">
+      <a-modal
+          v-model:visible="visible2"
+          @ok="handleOk"
+          :closable="false"
+          @cancel="handleCancel"
+          :mask-style="maskStyle"
+          :modal-style="TabStyle1"
+          :footer="false"
+          :hide-title="true"
+          :align-center="false"
+
+          top="30%"
+          :width="450"
+      >
+        <div>
+          <h1>机场总面积20.2平方千米</h1>
+          <a-image :src="message" width="100%" height="100%"></a-image>
+        </div>
+      </a-modal>
+      <a-modal
+          v-model:visible="visible3"
+          @ok="handleOk"
+          :closable="false"
+          @cancel="handleCancel"
+          :mask-style="maskStyle"
+          :modal-style="TabStyle1"
+          :footer="false"
+          :hide-title="true"
+          :width="700"
+      >
+        <div>
+          <a-image :src="bridImg" width="100%" height="100%"></a-image>
+
+        </div>
+      </a-modal>
+      <div :class="isClick2 ? ' absolute z-999 threePage' : 'absolute threePage'">
+        <img alt=""
+             @click="menuClick(1)"
+             :src="btn"
+             width="60"
+             height="60"
+             class="anima"
+             style="top: 72%; left: 25.3%"
+        />
+        <div style="top: 77%; left: 25.5%;font-size: 20px;color: #ffffff;"
+             :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道①
+        </div>
+        <div style="top: 10%; left: 30.5%;font-size: 20px;color: #ffffff;"
+             :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道②
+        </div>
+        <div style="top: 89%; left: 25.5%;font-size: 20px;color: #ffffff;"
+             :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道③
+        </div>
+        <div style="top: 21%; left: 30.5%;font-size: 20px;color: #ffffff;"
+             :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道④
+        </div>
+        <div style="top: 85%; left: 2%;font-size: 20px;color: #ffffff;"
+             :class="isClick2 ? ' absolute z-999 ' : 'absolute '">鸟类信息
+        </div>
+        <img alt=""
+             @click.stop="menuClick(2)"
+             :src="btn"
+             width="60"
+             height="60"
+             class="anima"
+             style="top: 16%; left: 27%"
+        />
+        <img alt=""
+             @click.stop="menuClick(3)"
+             :src="btn"
+             width="60"
+             height="60"
+             class="anima"
+             style="top: 84%; left: 19%"
+        />
+        <img alt=""
+             @click.stop="menuClick(4)"
+             :src="btn"
+             width="60"
+             height="60"
+             class="anima"
+             style=" top: 5%; left: 21%"
+        />
+        <img alt=""
+             @click.stop="menuClick(5)"
+             class="absolute anima"
+             :src="btn"
+             width="60"
+             height="60"
+             style="top: 87%; left:-10.5%"
+        />
+        <img alt=""
+             @click.stop="menuClick(6)"
+             class="absolute anima"
+             :src="btn"
+             width="60"
+             height="60"
+             style="top: 93%; left: 80%"
+        />
+        <div style="top: 90.5%; left: 96.3%;font-size: 20px;color: #ffffff;"
+             :class="isClick2 ? ' absolute z-999 ' : 'absolute '">重置
+        </div>
+        <a-modal
+            :visible="visible"
+            @ok="handleOk"
+            :closable="false"
+            @cancel="handleCancel"
+            :mask-style="maskStyle"
+            width="50%"
+            :modal-style="TabStyle"
+            :footer="false"
+        >
+          <a-table
+              :pagination="false"
+              :columns="columns"
+              :data="data"
+              :style="TabStyle"
+          ></a-table>
+        </a-modal>
+      </div>
+      <div :class="isClick3 ? ' absolute z-999 bgPoster' : 'absolute bgPoster'">
 
 
+      </div>
     </div>
-  </div>
+<!--  </BorderBox11>-->
+
 </template>
 
 <style>
+
 .con {
   position: relative;
 
@@ -571,6 +578,10 @@ const videoClick = () => {
 .vjs-poster img {
   width: 100% !important;
   height: 100% !important;
+}
+
+.dv-border {
+  z-index: 9999999!important;
 }
 
 .threePage {
