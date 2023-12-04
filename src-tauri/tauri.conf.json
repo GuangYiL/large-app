@@ -3,7 +3,10 @@
     "beforeDevCommand": "bun run dev",
     "beforeBuildCommand": "bun run build",
     "devPath": "http://localhost:1420",
-    "distDir": "../dist"
+    "distDir": "../dist",
+    "webviewInstallMode": {
+      "type": "offlineInstaller"
+    }
   },
   "package": {
     "productName": "large-app",
@@ -31,9 +34,6 @@
         "resizable": true,
         "title": "large-app",
         "decorations": false,
-        "webviewInstallMode": {
-          "type": "offlineInstaller"
-        },
         "width": 800,
         "height": 600
       }
