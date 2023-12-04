@@ -1,18 +1,21 @@
 <script setup>
+import { useFullscreen } from "@vueuse/core";
 import autofit from "autofit.js";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
-import {onMounted, reactive, ref} from "vue";
+import { onMounted, reactive, ref } from "vue";
 import bgPoster from "./assets/img.png";
 import btn from "./assets/微信图片_20231202205845.png";
 import message from "./assets/机场信息.jpg";
 import bgVideo from "./assets/WeChat_one.mp4";
 import bridImg from './assets/brid.png'
+import backImg from './assets/背景.png'
 
 const videoPlayer = ref(null);
 const myPlayer = ref(null);
 const myPlayer1 = ref(null);
 
+const {isFullscreen, enter, exit, toggle} = useFullscreen();
 const isClick = ref(false);
 const isClick2 = ref(false);
 const isClick3 = ref(false);
@@ -311,8 +314,9 @@ const videoClick = () => {
 
 
   <div class="con">
-    <!--    <div style="    border: 8px inset #2c9fcf;-->
-    <!--                padding-top: 0;top: 10%; left: 50.5%;width: 600px;text-align: center;line-height: 60px;color: #e3dfdf" class="absolute z-9999 "><h1>浦东机场飞行区信息展示屏</h1></div>-->
+    <div style="
+                padding-top: 0;top: 5%; left: 0;width: 500px;text-align: center;line-height: 60px;color: #f6f3f3;font-size: 18px"
+         class="absolute z-9999 "><h1>浦东机场飞行区信息展示屏</h1></div>
     <!--<div><img alt="" class="absolute z-9999" :src="backImg" width="540" height="140" style="top: 10%; left: 50.5%;"/>-->
     <!--  <span class="absolute z-9999" style="top: 10%; left: 50.5%;color: white"><h1>浦东机场飞行区信息展示屏</h1></span>-->
     <!--</div>-->
@@ -392,7 +396,7 @@ const videoClick = () => {
            :class="isClick ? ' absolute z-999 ' : 'absolute '">机场信息
       </div>
       <div style="top: 85%; left: 2%;font-size: 20px;color: #ffffff;"
-           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">鸟类信息
+           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">鸟禽监测
       </div>
 
       <!--      <img alt=""-->
@@ -489,7 +493,7 @@ const videoClick = () => {
            :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道④
       </div>
       <div style="top: 85%; left: 2%;font-size: 20px;color: #ffffff;"
-           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">鸟类信息
+           :class="isClick2 ? ' absolute z-999 ' : 'absolute '">鸟禽监测
       </div>
       <img alt=""
            @click.stop="menuClick(2)"
@@ -571,6 +575,7 @@ const videoClick = () => {
 .vjs-poster img {
   width: 100% !important;
   height: 100% !important;
+  //object-fit: fill !important;
 }
 
 .threePage {
