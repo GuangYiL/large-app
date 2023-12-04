@@ -9,12 +9,12 @@ import btn from "./assets/微信图片_20231202205845.png";
 import message from "./assets/机场信息.png";
 import bgVideo from "./assets/WeChat_one.mp4";
 import bridImg from './assets/brid.png'
+import {exit} from "@tauri-apps/plugin-process";
 
 const videoPlayer = ref(null);
 const myPlayer = ref(null);
 const myPlayer1 = ref(null);
 
-const {isFullscreen, enter, exit, toggle} = useFullscreen();
 const isClick = ref(false);
 const isClick2 = ref(false);
 const isClick3 = ref(false);
@@ -249,7 +249,10 @@ const videoClick = () => {
   isClick2.value = false;
   isClick.value = false;
   isClick3.value = true;
+};
 
+const handleClose = async () => {
+  await exit(1)
 };
 </script>
 
@@ -261,7 +264,7 @@ const videoClick = () => {
 
 
     <div style="color: #f6f3f3;right: 1%;top:1%;opacity: 0.7" class="absolute z-9999 ">
-      <icon-close-circle-fill style="width: 50px;height: 50px" @click=""/>
+      <icon-close-circle-fill style="width: 50px;height: 50px" @click="handleClose"/>
     </div>
     <!--<div><img alt="" class="absolute z-9999" :src="backImg" width="540" height="140" style="top: 10%; left: 50.5%;"/>-->
     <!--  <span class="absolute z-9999" style="top: 10%; left: 50.5%;color: white"><h1>浦东机场飞行区信息展示屏</h1></span>-->
@@ -424,7 +427,7 @@ const videoClick = () => {
            width="60"
            height="60"
            class="anima"
-           style="top: 72%; left: 25.3%"
+           style="top: 72%; left: 25.1%"
       />
       <div style="top: 77%; left: 25.5%;font-size: 20px;color: #ffffff;"
            :class="isClick2 ? ' absolute z-999 ' : 'absolute '">跑道①
@@ -452,7 +455,7 @@ const videoClick = () => {
            :src="btn"
            width="60"
            height="60"
-           style="top: 75%; left: 44%"
+           style="top: 75%; left: 43.9%"
       />
       <img alt=""
            @click.stop="menuClick(2)"
@@ -460,7 +463,7 @@ const videoClick = () => {
            width="60"
            height="60"
            class="anima"
-           style="top: 16%; left: 24%"
+           style="top: 16%; left: 23.7%"
       />
       <img alt=""
            @click.stop="menuClick(3)"
@@ -468,7 +471,7 @@ const videoClick = () => {
            width="60"
            height="60"
            class="anima"
-           style="top: 84%; left: 16%"
+           style="top: 84%; left: 15.7%"
       />
       <img alt=""
            @click.stop="menuClick(4)"
@@ -476,7 +479,7 @@ const videoClick = () => {
            width="60"
            height="60"
            class="anima"
-           style=" top: 5%; left: 18%"
+           style=" top: 5%; left: 17.7%"
       />
       <img alt=""
            @click.stop="menuClick(5)"
@@ -484,7 +487,7 @@ const videoClick = () => {
            :src="btn"
            width="60"
            height="60"
-           style="top: 87%; left:-13.5%"
+           style="top: 87%; left:-13.6%"
       />
       <img alt=""
            @click.stop="menuClick(6)"
@@ -492,9 +495,9 @@ const videoClick = () => {
            :src="btn"
            width="60"
            height="60"
-           style="top: 93%; left: 77%"
+           style="top: 93%; left: 76.9%"
       />
-      <div style="top: 90.5%; left: 96.3%;font-size: 20px;color: #ffffff;"
+      <div style="top: 90.5%; left: 96.2%;font-size: 20px;color: #ffffff;"
            :class="isClick2 ? ' absolute z-999 ' : 'absolute '">重置
       </div>
       <a-modal
