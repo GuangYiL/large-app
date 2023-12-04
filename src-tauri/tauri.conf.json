@@ -21,8 +21,10 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "webviewInstallMode": {
-        "type": "offlineInstaller"
+      "windows": {
+        "webviewInstallMode": {
+          "type": "offlineInstaller"
+        }
       }
     },
     "security": {
