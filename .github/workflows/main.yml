@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest,windows-latest]
+        platform: [windows-latest]
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -28,7 +28,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
 
       - name: install frontend dependencies
-        run: yarn install # change this to npm or pnpm depending on which one you use
+        run: pnpm install # change this to npm or pnpm depending on which one you use
 
       - uses: tauri-apps/tauri-action@v0
         env:
