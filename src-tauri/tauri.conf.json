@@ -1,13 +1,13 @@
 {
   "build": {
-    "beforeDevCommand": "yarn run dev",
-    "beforeBuildCommand": "yarn run build",
+    "beforeDevCommand": "pnpm run dev",
+    "beforeBuildCommand": "pnpm run build",
     "devPath": "http://localhost:1420",
     "distDir": "../dist"
   },
   "package": {
     "productName": "浦东机场飞行区信息展示屏",
-    "version": "0.0.0"
+    "version": "0.0.1"
   },
   "tauri": {
     "bundle": {
@@ -21,6 +21,16 @@
       "windows": {
         "webviewInstallMode": {
           "type": "offlineInstaller"
+        },
+        "wix": {
+          "language": "zh-CN"
+        },
+        "nsis": {
+          "languages": [
+            "SimpChinese",
+            "English"
+          ],
+          "displayLanguageSelector": true
         }
       }
     },
