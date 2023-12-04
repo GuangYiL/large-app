@@ -15,7 +15,8 @@
       "targets": "all",
       "identifier": "com.jungt",
       "icon": [
-        "icons/img.png"
+        "icons/img.png",
+        "icons/icon.ico"
       ],
       "windows": {
         "webviewInstallMode": {
