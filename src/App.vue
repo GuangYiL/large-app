@@ -1,15 +1,14 @@
 <script setup>
-import { useFullscreen } from "@vueuse/core";
+import {useFullscreen} from "@vueuse/core";
 import autofit from "autofit.js";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
-import { onMounted, reactive, ref } from "vue";
+import {onMounted, reactive, ref} from "vue";
 import bgPoster from "./assets/img.png";
 import btn from "./assets/微信图片_20231202205845.png";
 import message from "./assets/机场信息.jpg";
 import bgVideo from "./assets/WeChat_one.mp4";
 import bridImg from './assets/brid.png'
-import backImg from './assets/背景.png'
 
 const videoPlayer = ref(null);
 const myPlayer = ref(null);
