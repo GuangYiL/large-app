@@ -14,7 +14,7 @@ const videoPlayer = ref(null);
 const myPlayer = ref(null);
 const myPlayer1 = ref(null);
 
-const {isFullscreen, enter, exit, toggle} = useFullscreen();
+const {isFullscreen , enter, exit, toggle} = useFullscreen();
 const isClick = ref(false);
 const isClick2 = ref(false);
 const isClick3 = ref(false);
